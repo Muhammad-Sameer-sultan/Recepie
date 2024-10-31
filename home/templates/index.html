@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block main%}
+    <div>
+        <a href="/about">about</a>
+    </div>
+    <div>
+        <a href="/contact">contact</a>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, culpa esse.
+      Eius deserunt optio harum itaque ut cumque, officia, suscipit eaque enim
+      architecto placeat a! Atque aperiam eligendi neque sit!
+    </p>
+    {{peoples}}
+    <table>
+        <tr>
+          <th>S.no</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Feedback</th>
+        </tr>
+        {% for people in peoples%}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{people.name}}</td>
+          <td>{{people.age}}</td>
+          <td  {% if people.age < 18 %} style="background:red"  {% endif %} >
+            {% if people.age >= 18 %}
+            
+            Adult
+            {% else %}
+            Child
+            {% endif %}
+        
+        </td>
+        </tr>
+        {% endfor %}
+        
+      
+      </table>
+      {% if "apple" in fruits  %}
+        <h1>Yes</h1>
+      {% else %}
+      <h1>No</h1>
+      {% endif %}
+
+      {{text | truncatechars:7}}
+
+      {% endblock %}
