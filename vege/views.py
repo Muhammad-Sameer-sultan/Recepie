@@ -17,4 +17,8 @@ def recepies(request):
         print("recepie_description---->",recepie_description)
         print("recepie_image---->",recepie_image)
         return redirect("/recepies")
-    return render(request, "recepies.html")
+    query_set = Recepie.objects.all()
+    context = { "recepies":query_set }
+    
+
+    return render(request, "recepies.html" ,context=context)
