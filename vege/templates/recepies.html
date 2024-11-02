@@ -14,7 +14,7 @@
             <div class="">
               <label for="recepie_name" class="form-label">        <h4 class="mb-3 mx-auto text-center mt-5">Add Recepie</h4>
                 name</label>
-              <input type="text" class="form-control" required name="recepie_name">
+              <input type="text"  class="form-control" required name="recepie_name">
              
             </div>
            
@@ -59,6 +59,9 @@
           <td  >
             <a href="/delete_recepie/{{recepie.id}}" >
               <button class="btn btn-danger mx-2">Delete</button>
+            </a>
+            <a href="/update_recepie/{{recepie.id}}" >
+              <button class="btn btn-warning mx-2">Update</button>
             </a>
           </td>
         </tr>

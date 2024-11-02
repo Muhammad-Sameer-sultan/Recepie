@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block main %}
+    
+
+<div class="container mx-auto p-10 m-10 my-10">
+    <div class="col-md-7 col-lg-8 mt-10 mx-auto">
+     
+    
+        <h4 class="mb-3 mx-auto text-center mt-5">Update Recepie</h4>
+        <form class="needs-validation"  method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row g-3">
+            {{recepie}}
+            <div class="">
+              <label for="recepie_name" class="form-label">        <h4 class="mb-3 mx-auto text-center mt-5">Add Recepie</h4>
+                name</label>
+              <input value="{{ recepie.recepie_name }}" type="text" class="form-control" required name="recepie_name">
+             
+            </div>
+           
+            <div class="">
+              
+              <label for="recepie_description" class="form-label">Description</label>
+              <textarea type="text"  name="recepie_description" class="form-control" >{{recepie.recepie_description}}</textarea>
+             
+            </div>
+            <div class="">
+              
+              <label for="recepie_image" class="form-label">choose</label>
+              <input type="file" name="recepie_image" class="form-control">
+             
+            </div>
+          </div>
+    
+          <hr class="my-4">
+          <a href="/update_recepie/{{recepie_id}}">
+            <button class="w-100 btn btn-warning btn-lg" type="submit">
+                Update Recepie
+                </button>
+          </a>
+    
+         
+        </form>
+      </div>
+  
+</div>
+
+{% endblock %}
