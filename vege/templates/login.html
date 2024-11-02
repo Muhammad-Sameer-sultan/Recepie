@@ -2,8 +2,9 @@
 {% block main %}
 <div class="container mt-5">
     <main class="form-signin w-50 m-auto">
-        <form>
-          <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        <form method="post">
+          {% csrf_token %}
+          <!-- <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
           <h1 class="h3 mb-3 fw-normal">Please Login in</h1>
       
           <div class="form-floating">

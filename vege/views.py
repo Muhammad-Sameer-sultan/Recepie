@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from .models import *
-
+from django.contrib import messages
 # Create your views here.
 def recepies(request):
     # Handling form submission
@@ -9,7 +9,7 @@ def recepies(request):
         recepie_name = data.get("recepie_name")
         recepie_description = data.get("recepie_description")
         recepie_image = request.FILES.get("recepie_image")
-        
+       
         # Creating a new recipe instance
         Recepie.objects.create(
             recepie_name=recepie_name,
@@ -68,11 +68,18 @@ def login(request):
 def sign_up(request):
     if request.method == "POST":
         data= request.POST
+        user = User.objects.filter(username=data.get("first_name")+ data.get("last_name"))
+        if user.exists():
+            messages.info(request, "This username is already exist")
+            return redirect("/sign_up")
         user =  User.objects.create(
                 first_name = data.get("first_name"),
                 last_name = data.get("last_name"),
                 username =data.get("first_name")+ data.get("last_name")
                 )
+    
         user.set_password( data.get("password"))
         user.save()
+        messages.info(request, "you are registerd successfully ")
+        # return redirect("/sign_up")
     return render(request,"sign_up.html")
