@@ -70,7 +70,7 @@ def sign_up(request):
         data= request.POST
         user = User.objects.filter(username=data.get("first_name")+ data.get("last_name"))
         if user.exists():
-            messages.info(request, "This username is already exist")
+            messages.warning(request, "This username is already exist")
             return redirect("/sign_up")
         user =  User.objects.create(
                 first_name = data.get("first_name"),
@@ -80,6 +80,6 @@ def sign_up(request):
     
         user.set_password( data.get("password"))
         user.save()
-        messages.info(request, "you are registerd successfully ")
+        messages.success(request, "you are registerd successfully ")
         # return redirect("/sign_up")
     return render(request,"sign_up.html")
