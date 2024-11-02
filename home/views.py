@@ -34,3 +34,4 @@ def about(request):
 def contact(request):
    context ={"page":"Contact"}
    return render(request , "contact.html",context)
+

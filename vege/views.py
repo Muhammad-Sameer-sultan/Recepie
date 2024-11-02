@@ -60,3 +60,19 @@ def update_recepie(request, id):
 
     context = { "recepie": recepie }
     return render(request, "update_recepie.html", context=context)
+
+def login(request):
+    print("d-------------------------->")
+    return render(request,"login.html")
+
+def sign_up(request):
+    if request.method == "POST":
+        data= request.POST
+        user =  User.objects.create(
+                first_name = data.get("first_name"),
+                last_name = data.get("last_name"),
+                username =data.get("first_name")+ data.get("last_name")
+                )
+        user.set_password( data.get("password"))
+        user.save()
+    return render(request,"sign_up.html")

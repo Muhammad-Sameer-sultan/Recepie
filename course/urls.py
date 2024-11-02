@@ -27,8 +27,11 @@ urlpatterns = [
     path("about", about, name="about"),
     path("contact", contact, name="contact"),
     path("recepies", recepies, name="recepies"),
+    path('login/', login, name='login'),  # Ensure there is a trailing slash
     path("delete_recepie/<id>", delete_recepie, name="delete_recepie"),
     path("update_recepie/<id>", update_recepie, name="update_recepie"),
+   
+    path("sign_up/", sign_up, name="sign_up"),
     path("admin/", admin.site.urls),
 ]
 
