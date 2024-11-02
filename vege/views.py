@@ -3,22 +3,32 @@ from .models import *
 
 # Create your views here.
 def recepies(request):
+    # Handling form submission
     if request.method == "POST":
         data = request.POST
         recepie_name = data.get("recepie_name")
         recepie_description = data.get("recepie_description")
         recepie_image = request.FILES.get("recepie_image")
+        
+        # Creating a new recipe instance
         Recepie.objects.create(
-        recepie_name = recepie_name,
-        recepie_description = recepie_description,
-        recepie_image = recepie_image
+            recepie_name=recepie_name,
+            recepie_description=recepie_description,
+            recepie_image=recepie_image
         )
         return redirect("/recepies")
-    query_set = Recepie.objects.all()
-    context = { "recepies":query_set }
     
+    # Retrieving recipes, with optional search functionality
+    query_set = Recepie.objects.all()
+    search_query = request.GET.get("search")
+    if search_query:
+        query_set = query_set.filter(recepie_name__icontains=search_query)
+    
+    # Context for rendering
+    context = { "recepies": query_set }
+    
+    return render(request, "recepies.html", context=context)
 
-    return render(request, "recepies.html" ,context=context)
 
 def delete_recepie(request,id):
     Recepie.objects.get(id=id).delete()
