@@ -1,8 +1,10 @@
 from django.shortcuts import render , redirect
 from .models import *
 from django.contrib import messages
-from django.contrib.auth import authenticate ,login
+from django.contrib.auth import authenticate ,login, logout
+from django.contrib.auth.decorators import login_required   
 # Create your views here.
+@login_required(login_url="/login/")
 def recepies(request):
     # Handling form submission
     if request.method == "POST":
@@ -103,3 +105,7 @@ def sign_up(request):
         messages.success(request, "you are registerd successfully ")
         # return redirect("/sign_up")
     return render(request,"sign_up.html")
+
+def logout_view(request):
+    logout(request)
+    return redirect("/login/")

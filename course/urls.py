@@ -30,8 +30,8 @@ urlpatterns = [
     path('login/', login_view, name='login'),  # Ensure there is a trailing slash
     path("delete_recepie/<id>", delete_recepie, name="delete_recepie"),
     path("update_recepie/<id>", update_recepie, name="update_recepie"),
-   
     path("sign_up/", sign_up, name="sign_up"),
+    path("logout/", logout_view, name="logout"),
     path("admin/", admin.site.urls),
 ]
 
