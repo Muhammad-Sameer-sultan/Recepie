@@ -1,6 +1,7 @@
 from django.shortcuts import render , redirect
 from .models import *
 from django.contrib import messages
+from django.contrib.auth import authenticate ,login
 # Create your views here.
 def recepies(request):
     # Handling form submission
@@ -61,9 +62,28 @@ def update_recepie(request, id):
     context = { "recepie": recepie }
     return render(request, "update_recepie.html", context=context)
 
-def login(request):
-    print("d-------------------------->")
-    return render(request,"login.html")
+
+def login_view(request):
+    if request.method == "POST":
+        data = request.POST
+        username = data.get("username")
+        password = data.get("password")
+
+        if not User.objects.filter(username=username).exists():
+            messages.info(request, "User does not exist!")
+            return redirect("/login")
+
+        user = authenticate(username=username, password=password) 
+        if user is None:
+            messages.info(request, "Invalid username or password!")
+            return redirect("/login")
+
+        # Log the user in
+        login(request, user)
+        messages.success(request, "Login successful!")
+        return redirect("/recepies")  # Redirect to the home page or dashboard
+
+    return render(request, "login.html")
 
 def sign_up(request):
     if request.method == "POST":
@@ -75,7 +95,7 @@ def sign_up(request):
         user =  User.objects.create(
                 first_name = data.get("first_name"),
                 last_name = data.get("last_name"),
-                username =data.get("first_name")+ data.get("last_name")
+                username =data.get("username")
                 )
     
         user.set_password( data.get("password"))
