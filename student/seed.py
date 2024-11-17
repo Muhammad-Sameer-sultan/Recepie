@@ -3,6 +3,20 @@ from .models import *
 from faker import Faker
 faker = Faker()
 
+def create_subject_marks():
+    try:
+        students = Student.objects.all()
+        for student in students:
+            subjects = Subject.objects.all()
+            for subject in subjects:
+                StudentMarks.objects.create(
+                    student = student,
+                    subject = subject,
+                    marks = random.randint(0,100)
+                )
+        
+    except Exception as e :
+        print(e)
 
 def seed_db(n=10)->None:
     try:  

@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.urls import path
 from home.views import *
 from vege.views import *
+from student.views import *
 
 
 urlpatterns = [
@@ -32,7 +33,9 @@ urlpatterns = [
     path("update_recepie/<id>", update_recepie, name="update_recepie"),
     path("sign_up/", sign_up, name="sign_up"),
     path("logout/", logout_view, name="logout"),
+    path("students/", get_students, name="students"),
     path("admin/", admin.site.urls),
+
 ]
 
 
