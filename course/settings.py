@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     
 ]
 
-EXTERNAL_APPS= ["home","vege"]
+EXTERNAL_APPS= ["home","vege", "student"]
 INSTALLED_APPS += EXTERNAL_APPS
 
 MIDDLEWARE = [
