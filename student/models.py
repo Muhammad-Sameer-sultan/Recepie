@@ -24,6 +24,7 @@ class Student(models.Model):
     student_age = models.IntegerField(default=18)
     student_email = models.EmailField(unique=True)
     student_address = models.TextField()
+    
 
     def __str__(self):
         return self.student_name
@@ -50,3 +51,13 @@ class StudentMarks(models.Model):
     
     class Meta:
         unique_together = ['student','subject']
+        
+
+class ReportCard(models.Model):
+    student = models.ForeignKey(Student, related_name="std_report_card", on_delete= models.CASCADE)
+    student_rank = models.IntegerField()
+    date_of_report_card_generation = models.DateField(auto_now_add=True)
+    
+    
+    class Meta:
+        unique_together = ["student_rank","date_of_report_card_generation"]

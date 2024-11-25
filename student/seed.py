@@ -1,5 +1,9 @@
 import random
 from .models import *
+from django.db.models import Q ,Sum
+from django.db import transaction
+from django.utils.timezone import now
+from datetime import date
 from faker import Faker
 faker = Faker()
 
@@ -41,3 +45,34 @@ def seed_db(n=10)->None:
             )
     except Exception as e:
         print(e)
+        
+def create_report_card():
+    # Fetch students with total marks calculated
+    ranks = Student.objects.annotate(marks=Sum('std_marks__marks')).order_by('-marks', '-student_age')
+
+    # Initialize rank counter
+    rank_counter = 1
+    today = date.today()
+
+    # Use a transaction to ensure atomicity
+    with transaction.atomic():
+        # Create report cards in bulk
+        report_cards = []
+        for student in ranks:
+            # Check for an existing report card to prevent duplicate creation
+            if not ReportCard.objects.filter(
+                student=student, date_of_report_card_generation=today
+            ).exists():
+                report_cards.append(
+                    ReportCard(
+                        student=student,
+                        student_rank=rank_counter,
+                        date_of_report_card_generation=today,
+                    )
+                )
+                rank_counter += 1
+
+        # Bulk create all report cards
+        ReportCard.objects.bulk_create(report_cards)
+
+    print(f"{len(report_cards)} report cards created successfully.")
