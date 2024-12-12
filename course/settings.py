@@ -37,7 +37,7 @@ MEDIA_URL = '/media/'
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL  = 'accounts.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     
 ]
 
-EXTERNAL_APPS= ["home","vege", "student"]
+EXTERNAL_APPS= ["home","vege", "student", 'accounts']
 INSTALLED_APPS += EXTERNAL_APPS
 
 MIDDLEWARE = [
